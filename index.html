@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EOTC Present - App Installer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --bg: #090d16;
+      --card-bg: rgba(22, 30, 49, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(2, 132, 199, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.8) 0px, transparent 50%);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1.5rem;
+    }
+    
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 768px) {
+      .container {
+        grid-template-columns: 1.1fr 1.3fr;
+      }
+    }
+    
+    .left-panel {
+      padding: 3rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+    }
+    
+    @media (min-width: 768px) {
+      .left-panel {
+        border-bottom: none;
+        border-right: 1px solid var(--border);
+      }
+    }
+    
+    .logo-container {
+      width: 100px;
+      height: 100px;
+      background: rgba(2, 132, 199, 0.1);
+      border: 1.5px solid rgba(2, 132, 199, 0.3);
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.2);
+    }
+    
+    .logo-container svg {
+      width: 50px;
+      height: 50px;
+      fill: var(--primary);
+    }
+    
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #fff 0%, #bae6fd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+      max-width: 280px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.875rem 2rem;
+      border-radius: 12px;
+      width: 100%;
+      gap: 0.75rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+    }
+    
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
+    }
+    
+    .btn:active {
+      transform: translateY(0);
+    }
+    
+    .right-panel {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      gap: 1.5rem;
+    }
+    
+    .tab {
+      padding-bottom: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+    
+    .tab:hover {
+      color: var(--text);
+    }
+    
+    .tab.active {
+      color: var(--primary);
+    }
+    
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+    
+    .tab-content {
+      display: none;
+      flex-grow: 1;
+    }
+    
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    
+    .info-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    
+    .info-value {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    
+    .guide-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    
+    .step {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .step-number {
+      width: 28px;
+      height: 28px;
+      background: rgba(2, 132, 199, 0.15);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    
+    .step-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+    
+    .step-text strong {
+      color: var(--text);
+    }
+    
+    footer {
+      margin-top: 2rem;
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left panel -->
+    <div class="left-panel">
+      <div class="logo-container">
+        <!-- Ethiopian Cross SVG -->
+        <svg viewBox="0 0 24 24">
+          <path d="M11 2h2v4h-2V2zm0 16h2v4h-2v-4zm-5-7h4v2H6v-2zm12 0h4v2h-4v-2zm-3-3h2v2h-2V8zm-6 0h2v2H9V8zm0 6h2v2H9v-2zm6 0h2v2h-2v-2zM4.5 4.5l3 3-1.4 1.4-3-3 1.4-1.4zm15 15l-3-3 1.4-1.4 3 3-1.4 1.4zm-15 15l3-3 1.4 1.4-3 3-1.4-1.4zm15-15l-3 3-1.4-1.4 3-3 1.4 1.4z"/>
+        </svg>
+      </div>
+      <h1>EOTC Present</h1>
+      <p class="subtitle">Liturgy presentation software for the Ethiopian Orthodox Tewahedo Church.</p>
+      <button class="btn" onclick="downloadInstaller()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download Installer
+      </button>
+    </div>
+    
+    <!-- Right panel -->
+    <div class="right-panel">
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab(0)">App Info</div>
+        <div class="tab" onclick="switchTab(1)">Certificate Setup Guide</div>
+      </div>
+      
+      <!-- Tab 1: App Info -->
+      <div class="tab-content active" id="tab-0">
+        <div class="info-list">
+          <div class="info-row">
+            <span class="info-label">Version</span>
+            <span class="info-value">1.0.0.0</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Publisher</span>
+            <span class="info-value">EOTC Presentation Team</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Required OS</span>
+            <span class="info-value">Windows 10 / 11</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Architecture</span>
+            <span class="info-value">x64 (64-bit)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Auto-Updates</span>
+            <span class="info-value">Enabled (on startup)</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab 2: Certificate Setup Guide -->
+      <div class="tab-content" id="tab-1">
+        <div class="guide-steps">
+          <div class="step">
+            <span class="step-number">1</span>
+            <span class="step-text">Download the installer above, then <strong>right-click</strong> the downloaded <code>eotc_present.appinstaller</code> or <code>.msix</code> file and select <strong>Properties</strong>.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            <span class="step-text">Go to the <strong>Digital Signatures</strong> tab, select the signature from the list, and click <strong>Details</strong>.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            <span class="step-text">Click <strong>View Certificate</strong>, then click <strong>Install Certificate...</strong>.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">4</span>
+            <span class="step-text">Choose <strong>Local Machine</strong> (requires admin), then select <strong>Place all certificates in the following store</strong>, browse and choose <strong>Trusted Root Certification Authorities</strong>. Click Finish.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2026 EOTC Presentation Team. All rights reserved.
+  </footer>
+
+  <script>
+    function switchTab(index) {
+      document.querySelectorAll('.tab').forEach((tab, i) => {
+        if (i === index) tab.classList.add('active');
+        else tab.classList.remove('active');
+      });
+      document.querySelectorAll('.tab-content').forEach((content, i) => {
+        if (i === index) content.classList.add('active');
+        else content.classList.remove('active');
+      });
+    }
+    
+    function downloadInstaller() {
+      const a = document.createElement("a");
+      a.href = "eotc_present.appinstaller";
+      a.setAttribute("download", "eotc_present.appinstaller");
+      a.click();
+    }
+  </script>
+</body>
+</html>
