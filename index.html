@@ -320,6 +320,19 @@
             <span class="info-value">Enabled (on startup)</span>
           </div>
         </div>
+
+        <!-- Sideloading Notice -->
+        <div style="margin-top: 1.5rem; background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(2, 132, 199, 0.3); border-radius: 12px; padding: 1rem; display: flex; gap: 0.75rem; align-items: flex-start;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 0.1rem;">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div style="font-size: 0.85rem; line-height: 1.45;">
+            <strong style="color: var(--text)">First-time installation note:</strong>
+            <p style="color: var(--text-muted); margin-top: 0.25rem;">Because the app is distributed directly outside the Microsoft Store, Windows requires you to install our security certificate once. Without it, the Windows <strong>Install</strong> button will be grayed out. Follow the <strong>Certificate Setup Guide</strong> tab above to get started.</p>
+          </div>
+        </div>
       </div>
       
       <!-- Tab 2: Certificate Setup Guide -->
@@ -327,19 +340,23 @@
         <div class="guide-steps">
           <div class="step">
             <span class="step-number">1</span>
-            <span class="step-text">Download the installer above, then <strong>right-click</strong> the downloaded <code>eotc_present.appinstaller</code> or <code>.msix</code> file and select <strong>Properties</strong>.</span>
+            <span class="step-text">Download our official <a href="eotc_present.cer" download="eotc_present.cer" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">Security Certificate (eotc_present.cer)</a>.</span>
           </div>
           <div class="step">
             <span class="step-number">2</span>
-            <span class="step-text">Go to the <strong>Digital Signatures</strong> tab, select the signature from the list, and click <strong>Details</strong>.</span>
+            <span class="step-text">Double-click the downloaded <code>eotc_present.cer</code> file and click <strong>Install Certificate...</strong></span>
           </div>
           <div class="step">
             <span class="step-number">3</span>
-            <span class="step-text">Click <strong>View Certificate</strong>, then click <strong>Install Certificate...</strong>.</span>
+            <span class="step-text">Select <strong>Local Machine</strong> as the Store Location and click Next. (Requires administrator permission).</span>
           </div>
           <div class="step">
             <span class="step-number">4</span>
-            <span class="step-text">Choose <strong>Local Machine</strong> (requires admin), then select <strong>Place all certificates in the following store</strong>, browse and choose <strong>Trusted Root Certification Authorities</strong>. Click Finish.</span>
+            <span class="step-text">Select <strong>Place all certificates in the following store</strong>, click <strong>Browse...</strong>, select <strong>Trusted Root Certification Authorities</strong>, and click OK.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">5</span>
+            <span class="step-text">Click Next, then click Finish. Once the success popup appears, click the <strong>Download Installer</strong> button and click Install!</span>
           </div>
         </div>
       </div>
