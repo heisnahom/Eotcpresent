@@ -142,6 +142,29 @@
       transform: translateY(0);
     }
     
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.875rem 2rem;
+      border-radius: 12px;
+      width: 100%;
+      gap: 0.75rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      margin-top: 0.75rem;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
     .right-panel {
       padding: 2.5rem;
       display: flex;
@@ -279,25 +302,84 @@
       </div>
       <h1>EOTC Present</h1>
       <p class="subtitle">Liturgy presentation software for the Ethiopian Orthodox Tewahedo Church.</p>
-      <button class="btn" onclick="downloadInstaller()">
+      
+      <!-- Primary Easy Installer Button -->
+      <button class="btn" onclick="downloadEasyInstaller()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Download Easy Installer
+      </button>
+
+      <!-- Secondary Standard Installer -->
+      <button class="btn-secondary" onclick="downloadStandardInstaller()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
           <polyline points="7 10 12 15 17 10"/>
           <line x1="12" y1="15" x2="12" y2="3"/>
         </svg>
-        Download Installer
+        Standard App Installer
       </button>
     </div>
     
     <!-- Right panel -->
     <div class="right-panel">
       <div class="tabs">
-        <div class="tab active" onclick="switchTab(0)">App Info</div>
-        <div class="tab" onclick="switchTab(1)">Certificate Setup Guide</div>
+        <div class="tab active" onclick="switchTab(0)">Easy Install Guide</div>
+        <div class="tab" onclick="switchTab(1)">Manual Certificate Guide</div>
+        <div class="tab" onclick="switchTab(2)">App Info</div>
       </div>
       
-      <!-- Tab 1: App Info -->
+      <!-- Tab 0: Easy Install Guide -->
       <div class="tab-content active" id="tab-0">
+        <div class="guide-steps">
+          <div class="step">
+            <span class="step-number">1</span>
+            <span class="step-text">Click the <strong>Download Easy Installer</strong> button to download <code>install.bat</code>.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            <span class="step-text"><strong>Double-click</strong> (or right-click and select <strong>Run as Administrator</strong>) on the <code>install.bat</code> file.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            <span class="step-text">If a Windows Defender screen appears, click <strong>More info</strong> and then click <strong>Run anyway</strong>.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">4</span>
+            <span class="step-text">Click <strong>Yes</strong> on the UAC prompt to allow installation of the certificate. The installer window will open automatically, and the **Install** button will be fully enabled!</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tab 1: Manual Certificate Setup Guide -->
+      <div class="tab-content" id="tab-1">
+        <div class="guide-steps">
+          <div class="step">
+            <span class="step-number">1</span>
+            <span class="step-text">Download our official <a href="eotc_present.cer" download="eotc_present.cer" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">Security Certificate (eotc_present.cer)</a>.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            <span class="step-text">Double-click the downloaded <code>eotc_present.cer</code> file and click <strong>Install Certificate...</strong></span>
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            <span class="step-text">Select <strong>Local Machine</strong> as the Store Location and click Next.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">4</span>
+            <span class="step-text">Select <strong>Place all certificates in the following store</strong>, click <strong>Browse...</strong>, select <strong>Trusted Root Certification Authorities</strong>, and click OK.</span>
+          </div>
+          <div class="step">
+            <span class="step-number">5</span>
+            <span class="step-text">Click Next, then click Finish. Once imported, click the **Standard App Installer** button to install.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: App Info -->
+      <div class="tab-content" id="tab-2">
         <div class="info-list">
           <div class="info-row">
             <span class="info-label">Version</span>
@@ -320,45 +402,6 @@
             <span class="info-value">Enabled (on startup)</span>
           </div>
         </div>
-
-        <!-- Sideloading Notice -->
-        <div style="margin-top: 1.5rem; background: rgba(2, 132, 199, 0.15); border: 1px solid rgba(2, 132, 199, 0.3); border-radius: 12px; padding: 1rem; display: flex; gap: 0.75rem; align-items: flex-start;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 0.1rem;">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="16" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-          </svg>
-          <div style="font-size: 0.85rem; line-height: 1.45;">
-            <strong style="color: var(--text)">First-time installation note:</strong>
-            <p style="color: var(--text-muted); margin-top: 0.25rem;">Because the app is distributed directly outside the Microsoft Store, Windows requires you to install our security certificate once. Without it, the Windows <strong>Install</strong> button will be grayed out. Follow the <strong>Certificate Setup Guide</strong> tab above to get started.</p>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Tab 2: Certificate Setup Guide -->
-      <div class="tab-content" id="tab-1">
-        <div class="guide-steps">
-          <div class="step">
-            <span class="step-number">1</span>
-            <span class="step-text">Download our official <a href="eotc_present.cer" download="eotc_present.cer" style="color: #38bdf8; text-decoration: underline; font-weight: 600;">Security Certificate (eotc_present.cer)</a>.</span>
-          </div>
-          <div class="step">
-            <span class="step-number">2</span>
-            <span class="step-text">Double-click the downloaded <code>eotc_present.cer</code> file and click <strong>Install Certificate...</strong></span>
-          </div>
-          <div class="step">
-            <span class="step-number">3</span>
-            <span class="step-text">Select <strong>Local Machine</strong> as the Store Location and click Next. (Requires administrator permission).</span>
-          </div>
-          <div class="step">
-            <span class="step-number">4</span>
-            <span class="step-text">Select <strong>Place all certificates in the following store</strong>, click <strong>Browse...</strong>, select <strong>Trusted Root Certification Authorities</strong>, and click OK.</span>
-          </div>
-          <div class="step">
-            <span class="step-number">5</span>
-            <span class="step-text">Click Next, then click Finish. Once the success popup appears, click the <strong>Download Installer</strong> button and click Install!</span>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -379,7 +422,14 @@
       });
     }
     
-    function downloadInstaller() {
+    function downloadEasyInstaller() {
+      const a = document.createElement("a");
+      a.href = "install.bat";
+      a.setAttribute("download", "install.bat");
+      a.click();
+    }
+
+    function downloadStandardInstaller() {
       const a = document.createElement("a");
       a.href = "eotc_present.appinstaller";
       a.setAttribute("download", "eotc_present.appinstaller");
