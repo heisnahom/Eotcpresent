@@ -7,6 +7,6 @@
       ProcessorArchitecture="x64" />
     <UpdateSettings>
       <OnLaunch HoursBetweenUpdateChecks="0" 
-        UpdateBlocksActivation="false" ShowPrompt="false" />
+        UpdateBlocksActivation="false" ShowPrompt="true" />
             </UpdateSettings>
   </AppInstaller>
